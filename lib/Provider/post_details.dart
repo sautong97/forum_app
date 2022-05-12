@@ -20,4 +20,18 @@ class PostDetails with ChangeNotifier {
     notifyListeners();
     return;
   }
+
+  Future<void> filterPost(String text) async {
+    List<dynamic> commentsJson =
+        await APIHelper.get("https://jsonplaceholder.typicode.com/comments?postId=${post?.id}");
+    List<Comment> commentsData = commentsJson.map((x) => Comment.fromJson(x)).toList();
+    comments = commentsData
+        .where((element) =>
+            (element.name?.contains(text) ?? false) ||
+            (element.email?.contains(text) ?? false) ||
+            (element.body?.contains(text) ?? false))
+        .toList();
+    notifyListeners();
+    return;
+  }
 }

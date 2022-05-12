@@ -39,6 +39,9 @@ class PostDetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              TextField(
+                onChanged: (text) => postDetails.filterPost(text),
+              ),
               Text(
                 "Comments",
                 style: TextStyle(fontWeight: FontWeight.bold),
